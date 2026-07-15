@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Checkout</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav>
+        <a class="brand" th:href="@{/}">ShopEasy</a>
+        <a th:href="@{/cart}">Cart</a>
+    </nav>
+
+    <div class="container" style="max-width: 600px;">
+        <h1>Checkout</h1>
+        <p class="muted">Order total: ₹<span th:text="${cart.total}">0</span></p>
+
+        <form th:action="@{/checkout}" method="post" class="card" style="padding: 24px;">
+            <div class="form-group">
+                <label for="name">Full Name</label>
+                <input type="text" id="name" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" required>
+            </div>
+            <div class="form-group">
+                <label for="address">Delivery Address</label>
+                <textarea id="address" name="address" rows="3" required></textarea>
+            </div>
+            <button type="submit" class="btn">Place Order</button>
+        </form>
+    </div>
+</body>
+</html>

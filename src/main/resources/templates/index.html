@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ShopEasy - Home</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav>
+        <a class="brand" th:href="@{/}">ShopEasy</a>
+        <a th:href="@{/cart}">Cart <span class="cart-badge" th:text="${cartCount}">0</span></a>
+    </nav>
+
+    <div class="container">
+        <h1>Our Products</h1>
+        <div class="grid">
+            <div class="card" th:each="product : ${products}">
+                <a th:href="@{/product/{id}(id=${product.id})}">
+                    <img th:src="${product.imageUrl}" th:alt="${product.name}">
+                </a>
+                <div class="card-body">
+                    <h3 th:text="${product.name}">Product Name</h3>
+                    <p class="muted" th:text="${product.description}">Description</p>
+                    <p class="price" th:text="'₹' + ${product.price}">₹0</p>
+                    <a class="btn" th:href="@{/product/{id}(id=${product.id})}">View Details</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

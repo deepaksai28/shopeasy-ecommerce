@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Confirmed</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav>
+        <a class="brand" th:href="@{/}">ShopEasy</a>
+    </nav>
+
+    <div class="container" style="max-width: 600px;">
+        <div class="confirmation-box">
+            <h2>✓ Order Placed Successfully!</h2>
+            <p>Order #<span th:text="${order.id}">1</span> — thank you, <span th:text="${order.customerName}">Name</span>.</p>
+        </div>
+
+        <table>
+            <thead>
+            <tr><th>Product</th><th>Qty</th><th>Subtotal</th></tr>
+            </thead>
+            <tbody>
+            <tr th:each="item : ${order.items}">
+                <td th:text="${item.productName}">Name</td>
+                <td th:text="${item.quantity}">1</td>
+                <td th:text="'₹' + ${item.subtotal}">₹0</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <p class="total-row" style="margin-top: 16px;">Total Paid: ₹<span th:text="${order.totalAmount}">0</span></p>
+        <p class="muted">Delivering to: <span th:text="${order.address}">Address</span></p>
+
+        <a class="btn" th:href="@{/}" style="margin-top: 20px;">Continue Shopping</a>
+    </div>
+</body>
+</html>

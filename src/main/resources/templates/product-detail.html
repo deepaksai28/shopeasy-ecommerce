@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${product.name}">Product</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav>
+        <a class="brand" th:href="@{/}">ShopEasy</a>
+        <a th:href="@{/cart}">Cart <span class="cart-badge" th:text="${cartCount}">0</span></a>
+    </nav>
+
+    <div class="container" style="max-width: 700px;">
+        <a th:href="@{/}" class="muted">&larr; Back to products</a>
+        <div class="card" style="margin-top: 16px;">
+            <img th:src="${product.imageUrl}" th:alt="${product.name}" style="height: 280px;">
+            <div class="card-body">
+                <h1 th:text="${product.name}">Product Name</h1>
+                <p class="muted" th:text="${product.description}">Description</p>
+                <p class="price" th:text="'₹' + ${product.price}">₹0</p>
+                <p class="muted" th:text="${product.stock} + ' in stock'">Stock</p>
+
+                <form th:action="@{/cart/add/{id}(id=${product.id})}" method="post">
+                    <div class="form-group" style="max-width: 120px;">
+                        <label for="quantity">Quantity</label>
+                        <input type="number" id="quantity" name="quantity" value="1" min="1" th:max="${product.stock}">
+                    </div>
+                    <button type="submit" class="btn">Add to Cart</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

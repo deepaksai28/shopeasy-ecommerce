@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Cart</title>
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+    <nav>
+        <a class="brand" th:href="@{/}">ShopEasy</a>
+        <a th:href="@{/cart}">Cart <span class="cart-badge" th:text="${cartCount}">0</span></a>
+    </nav>
+
+    <div class="container">
+        <h1>Your Cart</h1>
+
+        <div th:if="${cart.itemCount == 0}" class="empty-state">
+            <p>Your cart is empty.</p>
+            <a class="btn" th:href="@{/}">Browse Products</a>
+        </div>
+
+        <div th:if="${cart.itemCount > 0}">
+            <table>
+                <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Price</th>
+                    <th>Quantity</th>
+                    <th>Subtotal</th>
+                    <th></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="entry : ${cart.items}">
+                    <td th:text="${entry.value.product.name}">Name</td>
+                    <td th:text="'₹' + ${entry.value.product.price}">₹0</td>
+                    <td style="width: 140px;">
+                        <form th:action="@{/cart/update/{id}(id=${entry.key})}" method="post" style="display:flex; gap:6px;">
+                            <input type="number" name="quantity" th:value="${entry.value.quantity}" min="1" style="width: 70px;">
+                            <button type="submit" class="btn btn-secondary">Update</button>
+                        </form>
+                    </td>
+                    <td th:text="'₹' + ${entry.value.subtotal}">₹0</td>
+                    <td>
+                        <form th:action="@{/cart/remove/{id}(id=${entry.key})}" method="post">
+                            <button type="submit" class="btn btn-secondary">Remove</button>
+                        </form>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+            <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center;">
+                <p class="total-row">Total: ₹<span th:text="${cart.total}">0</span></p>
+                <a class="btn" th:href="@{/checkout}">Proceed to Checkout</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
